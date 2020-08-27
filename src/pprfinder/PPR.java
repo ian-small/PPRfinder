@@ -7,7 +7,7 @@ package pprfinder;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
+// import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -144,7 +144,7 @@ public class PPR {
                 continue;
 
             // merge
-            if (PPRfinder.DEBUG)
+            if (PPRfinder.VERBOSE)
                 System.out.println("merging " + id + " " + m2.type);
             Motif new_motif = new Motif(m2.type);
             new_motif.hmm_start = m1.hmm_start;
@@ -200,7 +200,7 @@ public class PPR {
                 for (int n = 0; n < sobs.size() - 1; n++) {
                     s = sobs.get(n);
                     if (n < sobs.size() / 4) {
-                        prunings.add(sobs.get(n));
+                        prunings.add(s);
                     }
                 }
                 sobs.removeAll(prunings);

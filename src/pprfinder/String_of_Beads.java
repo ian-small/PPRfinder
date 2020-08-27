@@ -45,7 +45,8 @@ public class String_of_Beads {
     }
 
     public ArrayList<Motif> getMotifs() {
-        return (ArrayList<Motif>) motifs.clone();
+        return new ArrayList<Motif>(motifs); // more typesafety
+        // return (ArrayList<Motif>) motifs.clone();
     }
 
     public Motif getLastMotif() {
@@ -222,7 +223,8 @@ public class String_of_Beads {
             b = PPRfinder.Gapless_Motif_Combinations.get(combo);
 
             if (b == null) {
-                System.err.println("null for: " + combo);
+                if (PPRfinder.VERBOSE)
+                    System.out.println("No Gapless motif combination for: " + combo);
                 return false;
             }
 

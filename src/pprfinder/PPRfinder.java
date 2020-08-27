@@ -18,7 +18,7 @@ import java.util.HashMap;
  * @author ian
  */
 public class PPRfinder {
-    static boolean DEBUG = false;
+    static boolean VERBOSE = false;
 
     public static HashMap<String, PPR> PPRs = new HashMap<String, PPR>();
     public static HashMap<String, Boolean> Gapless_Motif_Combinations = new HashMap<String, Boolean>();
@@ -43,7 +43,7 @@ public class PPRfinder {
 
         try {
             // read --domtout table
-            if (PPRfinder.DEBUG)
+            if (PPRfinder.VERBOSE)
                 System.out.println("reading " + args[1]);
             BufferedReader reader = new BufferedReader(new FileReader(args[1]));
             String s;
@@ -63,11 +63,11 @@ public class PPRfinder {
                 p.addMotif(new Motif(fields));
             }
             reader.close();
-            if (PPRfinder.DEBUG)
+            if (PPRfinder.VERBOSE)
                 System.out.println("read " + PPRs.size() + " PPRs");
 
             // read fasta sequence file
-            if (PPRfinder.DEBUG)
+            if (PPRfinder.VERBOSE)
                 System.out.println("reading sequences from " + args[0]);
             reader = new BufferedReader(new FileReader(args[0]));
             StringBuilder sb = new StringBuilder(3000);
@@ -122,7 +122,7 @@ public class PPRfinder {
                 if (ppr.sequence != null && !ppr.motifs.isEmpty()) {
                     ppr.mergeMotifs();
                     ppr.getBestString(); // calculate best_sob;
-                    score = ppr.best_sob != null ? ppr.best_sob.getScore(): 0.0;
+                    score = ppr.best_sob != null ? ppr.best_sob.getScore() : 0.0;
                     if (score >= 40 && (ppr.best_sob.hasAdjacentMotifs() || ppr.best_sob.hasDYW())) {
                         beads_writer.write(ppr.getID() + "\t" + ppr.length() + "\t" + ppr.getBestString() + "\t"
                                 + ppr.guessSubclass() + "\t" + score);
@@ -143,7 +143,7 @@ public class PPRfinder {
         }
 
         catch (Exception ex) {
-            if (PPRfinder.DEBUG)
+            if (PPRfinder.VERBOSE)
                 ex.printStackTrace();
             System.err.println(ex.toString());
             System.exit(-1);
